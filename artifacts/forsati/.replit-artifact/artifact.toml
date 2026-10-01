@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "فرصتي | FORSATI"
+description = "منصة عربية RTL تجمع الفرص التطويرية والمهنية في مكان واحد، وتساعد الطلاب والخريجين والباحثين عن عمل على اكتشاف الفرص المناسبة ومتابعة مواعيدها."
+version = "1.0.0"
+id = "artifacts/forsati"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18757
+
+[services.development]
+run = "pnpm --filter @workspace/forsati run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/forsati", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/forsati/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18757"
+BASE_PATH = "/"
